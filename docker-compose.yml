@@ -1,0 +1,25 @@
+name: frontail
+
+services:
+  frontail:
+    build:
+      context: .
+      tags:
+        - tolttech/frontail
+    image: tolttech/frontail
+    container_name: frontail
+    hostname: api
+    logging:
+      options:
+        max-size: "10m"
+        max-file: 5
+        compress: "true"
+    restart: unless-stopped
+    environment:
+      - LETSENCRYPT_HOST=frontail.tolttechnologies.com
+      - VIRTUAL_PORT=8080
+      - VIRTUAL_HOST=frontail.tolttechnologies.com
+    volumes:
+      - "/data/syslog-ng/log:/logs"
+    ports:
+      - "8080:8080"
